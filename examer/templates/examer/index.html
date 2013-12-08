@@ -1,0 +1,22 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'examer/style.css' %}"/>
+
+{% if courses %}
+    <ul>
+        {% for course in courses %}
+            <li>
+                <a href="{% url 'examer:detail' course.id %}">{{ course.name }}</a>
+                {% comment %}<ul>
+                    {% for exam in course.exam_set.all %}
+                        {% for question in exam.examquestion_set.all %}
+                            <li><img class="answer" src="{{ STATIC_URL }}examer/images/courses/{{ course.name }}/exams/{{ exam.name }}/{{ question.name }}.png" /></li>
+                            <li><img class="solution" src="{{ STATIC_URL }}examer/images/courses/{{ course.name }}/solutions/{{ exam.name }}/{{ question.name }}.png" /></li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>{% endcomment %}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No courses are available.</p>
+{% endif %}

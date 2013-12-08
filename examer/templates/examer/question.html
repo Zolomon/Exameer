@@ -1,0 +1,36 @@
+{% extends "examer/master.html" %}
+
+{% load staticfiles %}
+
+{% block footer %}
+    <link rel="stylesheet" type="text/css" href="{% static 'examer/style.css' %}"/>
+    <script src="{% static 'examer/custom.js' %}"></script>
+{% endblock footer %}
+
+{% block content %}
+    <a href="{% url 'examer:question' course.id exam.id question.id %}">Permanent link</a> --
+    <a href="/course/{{ course.id }}/{{ exam.id }}/{{ question.id|add:-1 }}">Prev</a> -
+    <a href="{% url 'examer:random_question' course.id %}">Random</a> -
+    <a href="/course/{{ course.id }}/{{ exam.id }}/{{ question.id|add:1 }}">Next</a>
+
+    <div class="row">
+
+        <h1>{{ course.name }}/{{ course.id }}/{{ exam.id }}/{{ question.id }}</h1>
+
+        <p>{{ course.description }}</p>
+    </div>
+    <br/>
+
+    <div class="row">
+
+            <img class="answer"
+                 src="{{ STATIC_URL }}examer/images/courses/{{ course.name }}/exams/{{ exam.name }}/{{ question.name }}.png"/>
+
+
+            <div class="solution_box">
+                <img class="solution"
+                     src="{{ STATIC_URL }}examer/images/courses/{{ course.name }}/solutions/{{ exam.name }}/{{ question.name }}.png"/>
+            </div>
+
+   </div>
+{% endblock content %}
